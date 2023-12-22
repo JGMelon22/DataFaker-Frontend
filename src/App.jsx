@@ -12,6 +12,9 @@ function App() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
 
+  // 
+  const [updateData, setUpdateData] = useState(true);
+
   // Get People
   const requestGet = async () => {
     await axios.get(baseUlr)
@@ -27,6 +30,7 @@ function App() {
     await axios.delete(baseUlr)
       .then(response => {
         setData(response.data)
+        setUpdateData(true);
         openCloseDeleteModal();
       }).catch(error => {
         alert(error)
@@ -38,6 +42,8 @@ function App() {
     await axios.post(baseUlr + '/seed-data')
       .then(response => {
         setData(response.data)
+        setUpdateData(true);
+        openCloseSeedDataModal();
       }).catch(error => {
         alert(error)
       })
@@ -54,8 +60,11 @@ function App() {
 
   // UseEffect without infinity loop
   useEffect(() => {
-    requestGet();
-  }, [])
+    if (updateData) {
+      requestGet();
+      setUpdateData(false);
+    }
+  }, [updateData]);
 
   return (
     <>
@@ -78,7 +87,7 @@ function App() {
             <th className='text-center'>Last Name</th>
           </tr>
         </thead>
-        <tbody> {/* Will verify if People table is empty */}
+        <tbody>{/* Will verify if People table is empty */}
           {data && data.length > 0 ? (
             data.map((person, index) => (
               <tr key={index}>
@@ -114,7 +123,7 @@ function App() {
           <span>This operation might take a while...</span>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-success'>Seed!</button>
+          <button className='btn btn-success' onClick={() => requestPostSeedData()} >Seed!</button>
           <button className='btn btn-secondary' onClick={openCloseSeedDataModal}>Cancel</button>
         </ModalFooter>
       </Modal>

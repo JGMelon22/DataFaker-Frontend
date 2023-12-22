@@ -27,10 +27,10 @@ function App() {
     await axios.delete(baseUlr)
       .then(response => {
         setData(response.data)
+        openCloseDeleteModal();
       }).catch(error => {
         alert(error)
       })
-    openCloseDeleteModal();
   }
 
   // Modal States

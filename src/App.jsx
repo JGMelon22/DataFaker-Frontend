@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     requestGet();
-  })
+  }, [])
 
   return (
     <>

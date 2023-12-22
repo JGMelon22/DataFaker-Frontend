@@ -23,11 +23,21 @@ function App() {
   }
 
   // Bulk Delete
-  const deleteRequest = async () => {
+  const requestDelete = async () => {
     await axios.delete(baseUlr)
       .then(response => {
         setData(response.data)
         openCloseDeleteModal();
+      }).catch(error => {
+        alert(error)
+      })
+  }
+
+  // Seed Data
+  const requestPostSeedData = async () => {
+    await axios.post(baseUlr + '/seed-data')
+      .then(response => {
+        setData(response.data)
       }).catch(error => {
         alert(error)
       })
@@ -92,7 +102,7 @@ function App() {
           Are you sure you want to <b className='text-danger'>bulk delete</b>?
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-danger' onClick={() => deleteRequest()}>Delete</button>
+          <button className='btn btn-danger' onClick={() => requestDelete()}>Delete</button>
           <button className='btn btn-secondary' onClick={openCloseDeleteModal}>Cancel</button>
         </ModalFooter>
       </Modal>

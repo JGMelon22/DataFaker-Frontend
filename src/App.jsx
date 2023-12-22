@@ -9,6 +9,7 @@ function App() {
 
   const baseUlr = 'http://localhost:8080/api/person'
   const [data, setData] = useState([])
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // Get People
   const requestGet = async () => {
@@ -18,6 +19,11 @@ function App() {
       }).catch(error => {
         alert(error)
       })
+  }
+
+  // Modal States
+  const openCloseDeleteModal = () => {
+    setDeleteModal(!deleteModal);
   }
 
   // UseEffect without infinity loop
@@ -34,7 +40,7 @@ function App() {
         <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
           <button className="btn btn-info btn-sm">Bulk Insert</button>&nbsp;
           <button className="btn btn-success btn-sm">New Person</button>&nbsp;
-          <button className="btn btn-danger btn-sm">Clear</button>
+          <button className="btn btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
         </div>
       </nav>
 
@@ -56,8 +62,20 @@ function App() {
           ))}
         </tbody>
       </table>
+
+      {/* Delete Modal */}
+      <Modal isOpen={deleteModal}>
+        <ModalBody>
+          Are you sure you want to <b className='text-danger'>bulk delete</b>?
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-danger'>Delete</button>
+          <button className='btn btn-secondary' onClick={openCloseDeleteModal}>Cancel</button>
+        </ModalFooter>
+      </Modal>
     </>
   )
 }
 
 export default App
+

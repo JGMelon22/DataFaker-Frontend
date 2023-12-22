@@ -22,6 +22,17 @@ function App() {
       })
   }
 
+  // Bulk Delete
+  const deleteRequest = async () => {
+    await axios.delete(baseUlr)
+      .then(response => {
+        setData(response.data)
+      }).catch(error => {
+        alert(error)
+      })
+    openCloseDeleteModal();
+  }
+
   // Modal States
   const openCloseDeleteModal = () => {
     setDeleteModal(!deleteModal);
@@ -57,16 +68,23 @@ function App() {
             <th className='text-center'>Last Name</th>
           </tr>
         </thead>
-        <tbody>
-          {data.map((person, index) => (
-            <tr key={index}>
-              <td>{person.id}</td>
-              <td>{person.firstName}</td>
-              <td>{person.lastName}</td>
+        <tbody> {/* Will verify if People table is empty */}
+          {data && data.length > 0 ? (
+            data.map((person, index) => (
+              <tr key={index}>
+                <td>{person.id}</td>
+                <td>{person.firstName}</td>
+                <td>{person.lastName}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" className='text-center'>No data available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
+
 
       {/* Delete Modal */}
       <Modal isOpen={deleteModal}>
@@ -74,7 +92,7 @@ function App() {
           Are you sure you want to <b className='text-danger'>bulk delete</b>?
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-danger'>Delete</button>
+          <button className='btn btn-danger' onClick={() => deleteRequest()}>Delete</button>
           <button className='btn btn-secondary' onClick={openCloseDeleteModal}>Cancel</button>
         </ModalFooter>
       </Modal>

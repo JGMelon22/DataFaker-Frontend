@@ -20,6 +20,7 @@ function App() {
       })
   }
 
+  // UseEffect without infinity loop
   useEffect(() => {
     requestGet();
   }, [])
@@ -27,16 +28,22 @@ function App() {
   return (
     <>
       <nav className='navbar navbar-expand-lg bg-primary' data-bs-theme='dark'>
-        <span className='text-white'>People&nbsp;</span>
+        <span className='border border-light border-2 rounded-2 text-white'>&nbsp;People&nbsp;</span>
         <img id='page-logo' src={reactLogo} width='30px' />
+
+        <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
+          <button className="btn btn-info btn-sm">Bulk Insert</button>&nbsp;
+          <button className="btn btn-success btn-sm">New Person</button>&nbsp;
+          <button className="btn btn-danger btn-sm">Clear</button>
+        </div>
       </nav>
 
       <table className='table table-bordered table-hover'>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th className='text-center'>Id</th>
+            <th className='text-center'>First Name</th>
+            <th className='text-center'>Last Name</th>
           </tr>
         </thead>
         <tbody>

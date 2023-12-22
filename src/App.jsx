@@ -10,6 +10,7 @@ function App() {
   const baseUlr = 'http://localhost:8080/api/person'
   const [data, setData] = useState([])
   const [deleteModal, setDeleteModal] = useState(false);
+  const [seedDataModal, setSeedModal] = useState(false);
 
   // Get People
   const requestGet = async () => {
@@ -26,6 +27,10 @@ function App() {
     setDeleteModal(!deleteModal);
   }
 
+  const openCloseSeedDataModal = () => {
+    setSeedModal(!seedDataModal);
+  }
+
   // UseEffect without infinity loop
   useEffect(() => {
     requestGet();
@@ -38,9 +43,9 @@ function App() {
         <img id='page-logo' src={reactLogo} width='30px' />
 
         <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
-          <button className="btn btn-info btn-sm">Bulk Insert</button>&nbsp;
-          <button className="btn btn-success btn-sm">New Person</button>&nbsp;
-          <button className="btn btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
+          <button className="btn rounded-1 btn-success btn-sm" onClick={() => openCloseSeedDataModal()}>Seed Data</button>&nbsp;
+          <button className="btn rounded-1 btn-success btn-sm">New Person</button>&nbsp;
+          <button className="btn rounded-1 btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
         </div>
       </nav>
 
@@ -71,6 +76,18 @@ function App() {
         <ModalFooter>
           <button className='btn btn-danger'>Delete</button>
           <button className='btn btn-secondary' onClick={openCloseDeleteModal}>Cancel</button>
+        </ModalFooter>
+      </Modal>
+
+      {/* Seed Data Modal */}
+      <Modal isOpen={seedDataModal}>
+        <ModalBody>
+          Are you sure you want to <b className='text-success'>seed data</b>?&nbsp;
+          <span>This operation might take a while...</span>
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-success'>Seed!</button>
+          <button className='btn btn-secondary' onClick={openCloseSeedDataModal}>Cancel</button>
         </ModalFooter>
       </Modal>
     </>

@@ -28,7 +28,7 @@ function App() {
     <>
       <nav className='navbar navbar-expand-lg bg-primary' data-bs-theme='dark'>
         <span className='text-white'>People</span>
-        <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-plain.svg' />
+        <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-plain.svg' width='30px' />
       </nav>
 
       <table className='table table-bordered table-hover'>

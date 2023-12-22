@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-import springLogo from './assets/spring.svg'
+import reactLogo from './assets/react.svg'
 
 import './App.css'
 
@@ -27,8 +27,8 @@ function App() {
   return (
     <>
       <nav className='navbar navbar-expand-lg bg-primary' data-bs-theme='dark'>
-        <span className='text-white'>People</span>
-        <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-plain.svg' width='30px' />
+        <span className='text-white'>People&nbsp;</span>
+        <img id='page-logo' src={reactLogo} width='30px' />
       </nav>
 
       <table className='table table-bordered table-hover'>

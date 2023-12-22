@@ -74,7 +74,7 @@ function App() {
 
         <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
           <button className="btn rounded-1 btn-success btn-sm" onClick={() => openCloseSeedDataModal()}>Seed Data</button>&nbsp;
-          <button className="btn rounded-1 btn-success btn-sm">New Person</button>&nbsp;
+          <button className="btn rounded-1 btn-success btn-sm" disabled='true'>New Person</button>&nbsp;
           <button className="btn rounded-1 btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
         </div>
       </nav>

@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
 
-  const baseUlr = 'http://localhost:8080/api/person'
+  const baseUlr = 'https://render-deploy-data-faker.onrender.com/api/person'
   const [data, setData] = useState([])
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);

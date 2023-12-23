@@ -12,6 +12,10 @@ function App() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
 
+  // Buttons action logic
+  const [clearButton, setClearButton] = useState(false);
+  const [seedDataButton, setSeedDataButton] = useState(false);
+
   // 
   const [updateData, setUpdateData] = useState(true);
 
@@ -27,11 +31,16 @@ function App() {
 
   // Bulk Delete
   const requestDelete = async () => {
+
+    setClearButton(true);
+
     await axios.delete(baseUlr)
       .then(response => {
         setData(response.data)
         setUpdateData(true);
         openCloseDeleteModal();
+
+        setClearButton(false);
       }).catch(error => {
         alert(error)
       })
@@ -39,11 +48,16 @@ function App() {
 
   // Seed Data
   const requestPostSeedData = async () => {
+
+    setSeedDataButton(true);
+
     await axios.post(baseUlr + '/seed-data')
       .then(response => {
         setData(response.data)
         setUpdateData(true);
         openCloseSeedDataModal();
+
+        setSeedDataButton(false);
       }).catch(error => {
         alert(error)
       })
@@ -74,8 +88,8 @@ function App() {
 
         <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
           <button className="btn rounded-1 btn-success btn-sm" onClick={() => openCloseSeedDataModal()}>Seed Data</button>&nbsp;
-          <button className="btn rounded-1 btn-success btn-sm" disabled='true'>New Person</button>&nbsp;
-          <button className="btn rounded-1 btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
+          <button className="btn rounded-1 btn-success btn-sm" disabled={true}>New Person</button>&nbsp;
+          <button id='clear-button' className="btn rounded-1 btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
         </div>
       </nav>
 
@@ -111,7 +125,7 @@ function App() {
           Are you sure you want to <b className='text-danger'>bulk delete</b>?
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-danger' onClick={() => requestDelete()}>Delete</button>
+          <button className='btn btn-danger' disabled={clearButton} onClick={() => requestDelete()} >Delete</button>
           <button className='btn btn-secondary' onClick={openCloseDeleteModal}>Cancel</button>
         </ModalFooter>
       </Modal>
@@ -123,7 +137,7 @@ function App() {
           <span>This operation might take a while...</span>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-success' onClick={() => requestPostSeedData()} >Seed!</button>
+          <button className='btn btn-success' disabled={seedDataButton} onClick={() => requestPostSeedData()} >Seed!</button>
           <button className='btn btn-secondary' onClick={openCloseSeedDataModal}>Cancel</button>
         </ModalFooter>
       </Modal>

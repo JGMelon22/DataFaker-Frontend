@@ -1,10 +1,25 @@
-FROM node:20-alpine
+# Build Stage
+FROM node:20-alpine as BUILD_IMAGE
+WORKDIR /app/react-app
 
-WORKDIR /app
+COPY package.json .
+
+RUN npm install 
 
 COPY . .
 
-RUN npm install && \
-    npm run build
+RUN npm run build
 
-EXPOSE 40
+# Production Stage
+FROM node:20-alpine as PRODUCTION_IMAGE
+WORKDIR /app/react-app
+
+COPY --from=BUILD_IMAGE /app/react-app/ /app/react-app/
+EXPOSE 8080
+
+# Enable preview 
+COPY package.json .
+COPY vite.config.js .
+
+EXPOSE 8080
+CMD ["npm", "run", "dev"]

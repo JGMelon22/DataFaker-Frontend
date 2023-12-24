@@ -83,13 +83,16 @@ function App() {
   return (
     <>
       <nav className='navbar navbar-expand-lg bg-primary' data-bs-theme='dark'>
-        <span className='border border-light border-2 rounded-2 text-white'>&nbsp;People&nbsp;</span>
-        <img id='page-logo' src={reactLogo} width='30px' />
-
-        <div id='buttons-action' className="btn-group ms-auto" role="group" aria-label="">
-          <button className="btn rounded-1 btn-success btn-sm" onClick={() => openCloseSeedDataModal()}>Seed Data</button>&nbsp;
-          <button className="btn rounded-1 btn-success btn-sm" disabled={true}>New Person</button>&nbsp;
-          <button id='clear-button' className="btn rounded-1 btn-danger btn-sm" onClick={() => openCloseDeleteModal()}>Clear</button>
+        <div className='container'><a className='navbar-brand d-flex align-items-center' href='/'><span className='navbar-brand d-flex align-items-center me-1'>
+          <img id='page-logo' src={reactLogo} width='30px' />
+        </span><span className='border border-light border-2 rounded-2 text-white'>&nbsp;People&nbsp;</span></a><button data-bs-toggle='collapse' className='navbar-toggler' data-bs-target='#navcol-1'><span className='visually-hidden'>Toggle navigation</span><span className='navbar-toggler-icon'></span></button>
+          <div className='collapse navbar-collapse' id='navcol-1'>
+            <ul className='navbar-nav me-auto '>
+              <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseSeedDataModal()}>Seed Data</a></li>
+              <li id='new-person' className='nav-item'><a className='nav-link' onClick={() => alert('Working in progress...')} >New Person</a></li>
+              <li id='clear' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDeleteModal()}>Clear</a></li>
+            </ul>
+          </div>
         </div>
       </nav>
 
@@ -112,7 +115,7 @@ function App() {
             ))
           ) : (
             <tr>
-              <td colSpan="3" className='text-center'>No data available</td>
+              <td colSpan='3' className='text-center'>No data available</td>
             </tr>
           )}
         </tbody>

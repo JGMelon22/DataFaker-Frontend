@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
 
-  const baseUlr = 'https://render-deploy-data-faker.onrender.com/api/person'
+  const baseUrl = 'https://render-deploy-data-faker.onrender.com/api/person'
   const [data, setData] = useState([])
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
@@ -21,7 +21,7 @@ function App() {
 
   // Get People
   const requestGet = async () => {
-    await axios.get(baseUlr)
+    await axios.get(baseUrl)
       .then(response => {
         setData(response.data)
       }).catch(error => {
@@ -34,7 +34,7 @@ function App() {
 
     setClearButton(true);
 
-    await axios.delete(baseUlr)
+    await axios.delete(baseUrl)
       .then(response => {
         setData(response.data)
         setUpdateData(true);
@@ -51,7 +51,7 @@ function App() {
 
     setSeedDataButton(true);
 
-    await axios.post(baseUlr + '/seed-data')
+    await axios.post(baseUrl + '/seed-data')
       .then(response => {
         setData(response.data)
         setUpdateData(true);

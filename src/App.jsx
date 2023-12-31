@@ -9,6 +9,9 @@ function App() {
 
   const baseUrl = 'https://render-deploy-data-faker.onrender.com/api/person'
   const [data, setData] = useState([])
+
+  // Modals
+  const [dataModal, setDataModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
 
@@ -64,6 +67,10 @@ function App() {
   }
 
   // Modal States
+  const openCloseDataModal = () => {
+    setDataModal(!dataModal);
+  }
+
   const openCloseDeleteModal = () => {
     setDeleteModal(!deleteModal);
   }
@@ -89,7 +96,8 @@ function App() {
           <div className='collapse navbar-collapse' id='navcol-1'>
             <ul className='navbar-nav me-auto '>
               <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseSeedDataModal()}>Seed Data</a></li>
-              <li id='new-person' className='nav-item'><a className='nav-link' onClick={() => alert('Working in progress...')} >New Person</a></li>
+              <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDataModal()}>List All</a></li>
+              <li id='new-person' className='nav-item'><a className='nav-link' onClick={() => alert('Working in progress...')}>New Person</a></li>
               <li id='clear' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDeleteModal()}>Clear</a></li>
             </ul>
           </div>
@@ -151,6 +159,43 @@ function App() {
           <p className='text-muted mb-0'><em>Talk is cheap. Show me the code </em>- Torvalds, Linus</p>
         </div>
       </footer>
+
+      { /* List Data Details Modal */}
+      < Modal isOpen={dataModal} className='modal-lg' >
+        <ModalHeader className='text-center mx-auto'>
+          <div>
+            <h3>People</h3>
+          </div>
+        </ModalHeader>
+        <ModalBody className='form-group'>
+          <table className='table table-striped table-bordered table-hover'>
+            <thead>
+              <tr>
+                <th className='text-center'>First Name</th>
+                <th className='text-center'>Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data && data.length > 0 ? (
+                data.map((person, index) => (
+                  <tr key={index}>
+                    <td>{person.id}</td>
+                    <td>{person.firstName}</td>
+                    <td>{person.lastName}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan='3' className='text-center'>No data available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-secondary m-1' onClick={() => openCloseDataModal()}>Close</button>
+        </ModalFooter>
+      </Modal >
 
       {/* Delete Modal */}
       <Modal isOpen={deleteModal}>

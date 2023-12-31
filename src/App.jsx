@@ -96,31 +96,61 @@ function App() {
         </div>
       </nav>
 
-      <table className='table table-bordered table-hover'>
-        <thead>
-          <tr>
-            <th className='text-center'>Id</th>
-            <th className='text-center'>First Name</th>
-            <th className='text-center'>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>{/* Will verify if People table is empty */}
-          {data && data.length > 0 ? (
-            data.map((person, index) => (
-              <tr key={index}>
-                <td>{person.id}</td>
-                <td>{person.firstName}</td>
-                <td>{person.lastName}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan='3' className='text-center'>No data available</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
+      <div className='container py-4 py-xl-5'>
+        <div className='row mb-5'>
+          <div className='col-md-8 col-xl-6 text-center mx-auto'>
+            <h2>Data Faker Front-end</h2>
+            <p className='w-lg-50'>This library generates fake data, similar to other fake data generators. It's useful when you're developing a new project and need some pretty data for showcase.</p>
+          </div>
+        </div>
+        <div className='row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3'>
+          <div className='col border border-white rounded'>
+            <div className='card border-0 shadow-none'>
+              <div className='card-body d-flex align-items-center p-0'><img className='rounded-circle flex-shrink-0 me-3 fit-cover' width='130' height='130' src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' />
+                <div>
+                  <h5 className='fw-bold text-primary mb-0'>Java 17+</h5>
+                  <p className='text-muted mb-1'>Requires Java 17 or greater</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='col border border-white rounded'>
+            <div className='card border-0 shadow-none'>
+              <div className='card-body d-flex align-items-center p-0'><img className='rounded-circle flex-shrink-0 me-3 fit-cover' width='130' height='130' src='https://www.cdnlogo.com/logos/o/94/open-source.svg' />
+                <div>
+                  <h5 className='fw-bold text-primary mb-0'><strong>Open source</strong></h5>
+                  <p className='text-muted mb-1'>OSS</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='col border border-white rounded'>
+            <div className='card border-0 shadow-none'>
+              <div className='card-body d-flex align-items-center p-0'><img className='rounded-circle flex-shrink-0 me-3 fit-cover' width='130' height='130' src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-line.svg' />
+                <div>
+                  <h5 className='fw-bold text-primary mb-0'>Developer Friendly</h5>
+                  <p className='text-muted mb-1'>Easy to setup and use</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer className='text-center bg-dark'>
+        <div className='container text-white py-4 py-lg-5'>
+          <ul className='list-inline'>
+            <li className='list-inline-item'><a className='link-light' href='https://github.com/JGMelon22/DataFaker-Frontend'>Front-end source code</a></li>
+            <li className='list-inline-item'><a className='link-light' href='https://github.com/JGMelon22/DataFakerDemo'>Back-end source code</a></li>
+            <li className='list-inline-item'><a className='link-light' href='https://github.com/datafaker-net/datafaker'>Data Faker project code</a></li>
+          </ul>
+          <ul className='list-inline'>
+            <li className='list-inline-item me-4'></li>
+            <li className='list-inline-item me-4'><img width='100' height='80' src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' /></li>
+            <li className='list-inline-item'></li>
+          </ul>
+          <p className='text-muted mb-0'><em>Talk is cheap. Show me the code </em>- Torvalds, Linus</p>
+        </div>
+      </footer>
 
       {/* Delete Modal */}
       <Modal isOpen={deleteModal}>

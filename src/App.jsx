@@ -23,6 +23,23 @@ function App() {
   // 
   const [updateData, setUpdateData] = useState(true);
 
+  // User input
+  const [selectedPerson, setSelectedPerson] = useState(
+    {
+      id: '',
+      firstName: '',
+      lastName: '',
+      address: ''
+    })
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setSelectedPerson({
+      ...selectedPerson,
+      [name]: value
+    });
+  }
+
   // Get People
   const requestGet = async () => {
     await axios.get(baseUrl)
@@ -64,6 +81,18 @@ function App() {
         setSeedDataButton(false);
       }).catch(error => {
         alert(error)
+      })
+  }
+
+  // Add new person
+  const requestPost = async () => {
+    delete selectedPerson.id;
+    await axios.post(baseUrl, selectedPerson)
+      .then(response => {
+        setData(data.concat(response.data));
+        openClosePostDataModal();
+      }).catch(error => {
+        console.log(error.response);
       })
   }
 
@@ -176,8 +205,10 @@ function App() {
           <table className='table table-striped table-bordered table-hover'>
             <thead>
               <tr>
+              <th className='text-center'>Id</th>
                 <th className='text-center'>First Name</th>
                 <th className='text-center'>Last Name</th>
+                <th className='text-center'>Full Address</th>
               </tr>
             </thead>
             <tbody>
@@ -187,6 +218,7 @@ function App() {
                     <td>{person.id}</td>
                     <td>{person.firstName}</td>
                     <td>{person.lastName}</td>
+                    <td>{person.address}</td>
                   </tr>
                 ))
               ) : (
@@ -232,21 +264,21 @@ function App() {
           <div className='form-group'>
             <label>First Name: </label>
             <br />
-            <input type='text' className='form-control' />
+            <input type='text' className='form-control text-light' name='firstName' onChange={handleChange} />
             <br />
             <label>Last Name: </label>
             <br />
-            <input type='text' className='form-control' />
+            <input type='text' className='form-control text-light' name='lastName' onChange={handleChange} />
             <br />
             <label>Full Address: </label>
             <br />
-            <input type='text' className='form-control' />
+            <input type='text' className='form-control text-light' name='address' onChange={handleChange} />
             <br />
           </div>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-success'>Include</button>
-          <button className='btn btn-danger'>Cancel</button>
+          <button className='btn btn-success' onClick={() => requestPost()}>Include</button> {" "}
+          <button className='btn btn-danger' onClick={() => openClosePostDataModal()}>Cancel</button>
         </ModalFooter>
       </Modal>
     </>

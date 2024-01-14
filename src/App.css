@@ -17,7 +17,8 @@
 }
 
 #new-person {
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
+  cursor: pointer;
 }
 
 #clear {

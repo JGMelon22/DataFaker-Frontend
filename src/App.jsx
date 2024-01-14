@@ -14,6 +14,7 @@ function App() {
   const [dataModal, setDataModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
+  const [postDataModal, setPostDataModal] = useState(false);
 
   // Buttons action logic
   const [clearButton, setClearButton] = useState(false);
@@ -79,6 +80,10 @@ function App() {
     setSeedModal(!seedDataModal);
   }
 
+  const openClosePostDataModal = () => {
+    setPostDataModal(!postDataModal);
+  }
+
   // UseEffect without infinity loop
   useEffect(() => {
     if (updateData) {
@@ -97,7 +102,7 @@ function App() {
             <ul className='navbar-nav me-auto '>
               <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseSeedDataModal()}>Seed Data</a></li>
               <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDataModal()}>List All</a></li>
-              <li id='new-person' className='nav-item'><a className='nav-link' onClick={() => alert('Working in progress...')}>New Person</a></li>
+              <li id='new-person' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openClosePostDataModal()}>New Person</a></li>
               <li id='clear' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDeleteModal()}>Clear</a></li>
             </ul>
           </div>
@@ -217,6 +222,31 @@ function App() {
         <ModalFooter>
           <button className='btn btn-success' disabled={seedDataButton} onClick={() => requestPostSeedData()} >Seed!</button>
           <button className='btn btn-secondary' onClick={openCloseSeedDataModal}>Cancel</button>
+        </ModalFooter>
+      </Modal>
+
+      {/* Post Data Modal */}
+      <Modal isOpen={postDataModal}>
+        <ModalHeader>Insert a new person data</ModalHeader>
+        <ModalBody>
+          <div className='form-group'>
+            <label>First Name: </label>
+            <br />
+            <input type='text' className='form-control' />
+            <br />
+            <label>Last Name: </label>
+            <br />
+            <input type='text' className='form-control' />
+            <br />
+            <label>Full Address: </label>
+            <br />
+            <input type='text' className='form-control' />
+            <br />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-success'>Include</button>
+          <button className='btn btn-danger'>Cancel</button>
         </ModalFooter>
       </Modal>
     </>

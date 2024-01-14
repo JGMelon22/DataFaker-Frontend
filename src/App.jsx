@@ -169,7 +169,7 @@ function App() {
       < Modal isOpen={dataModal} className='modal-lg' >
         <ModalHeader className='text-center mx-auto'>
           <div>
-            <h3>People</h3>
+            <h3>Top {data.slice(0, 15).length} People Data</h3>
           </div>
         </ModalHeader>
         <ModalBody className='form-group'>
@@ -182,7 +182,7 @@ function App() {
             </thead>
             <tbody>
               {data && data.length > 0 ? (
-                data.map((person, index) => (
+                data.slice(0, 15).map((person, index) => (
                   <tr key={index}>
                     <td>{person.id}</td>
                     <td>{person.firstName}</td>
@@ -191,7 +191,7 @@ function App() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan='3' className='text-center'>No data available</td>
+                  <td colSpan="3">No data available</td>
                 </tr>
               )}
             </tbody>

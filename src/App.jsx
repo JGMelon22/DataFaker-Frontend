@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
 
-  const baseUrl = 'http://localhost:8009/api/person'
+  const baseUrl = 'https://render-deploy-data-faker.onrender.com/api/person'
   const [data, setData] = useState([])
 
   // Modals

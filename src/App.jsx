@@ -271,7 +271,7 @@ function App() {
           <div className='form-group'>
             <label>First Name: </label>
             <br />
-            <input type='text' className='form-control text-light' Disabled={postDataButton} name='firstName' onChange={handleChange} />
+            <input type='text' className='form-control text-light' name='firstName' onChange={handleChange} />
             <br />
             <label>Last Name: </label>
             <br />
@@ -284,7 +284,7 @@ function App() {
           </div>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-success' onClick={() => requestPost()}>Include</button> {" "}
+          <button className='btn btn-success' disabled={postDataButton} onClick={() => requestPost()}>Include</button> {" "}
           <button className='btn btn-danger' onClick={() => openClosePostDataModal()}>Cancel</button>
         </ModalFooter>
       </Modal>

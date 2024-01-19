@@ -19,6 +19,7 @@ function App() {
   // Buttons action logic
   const [clearButton, setClearButton] = useState(false);
   const [seedDataButton, setSeedDataButton] = useState(false);
+  const [postDataButton, setPostDataButton] = useState(false);
 
   // 
   const [updateData, setUpdateData] = useState(true);
@@ -86,14 +87,20 @@ function App() {
 
   // Add new person
   const requestPost = async () => {
+
+    setPostDataButton(true);
+
     delete selectedPerson.id;
     await axios.post(baseUrl, selectedPerson)
       .then(response => {
         setData(data.concat(response.data));
+        setUpdateData(true);
         openClosePostDataModal();
       }).catch(error => {
         console.log(error.response);
       })
+
+    setPostDataButton(false);
   }
 
   // Modal States
@@ -205,7 +212,7 @@ function App() {
           <table className='table table-striped table-bordered table-hover'>
             <thead>
               <tr>
-              <th className='text-center'>Id</th>
+                <th className='text-center'>Id</th>
                 <th className='text-center'>First Name</th>
                 <th className='text-center'>Last Name</th>
                 <th className='text-center'>Full Address</th>
@@ -277,7 +284,7 @@ function App() {
           </div>
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-success' onClick={() => requestPost()}>Include</button> {" "}
+          <button className='btn btn-success' disabled={postDataButton} onClick={() => requestPost()}>Include</button> {" "}
           <button className='btn btn-danger' onClick={() => openClosePostDataModal()}>Cancel</button>
         </ModalFooter>
       </Modal>
@@ -286,4 +293,3 @@ function App() {
 }
 
 export default App
-

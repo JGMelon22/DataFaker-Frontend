@@ -7,13 +7,14 @@ import './App.css'
 
 function App() {
 
-  const baseUrl = 'https://render-deploy-data-faker.onrender.com/api/person'
+  const baseUrl = 'http://localhost:8009/api/person'
   const [data, setData] = useState([])
 
   // Modals
   const [dataModal, setDataModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [seedDataModal, setSeedModal] = useState(false);
+  const [postDataModal, setPostDataModal] = useState(false);
 
   // Buttons action logic
   const [clearButton, setClearButton] = useState(false);
@@ -21,6 +22,23 @@ function App() {
 
   // 
   const [updateData, setUpdateData] = useState(true);
+
+  // User input
+  const [selectedPerson, setSelectedPerson] = useState(
+    {
+      id: '',
+      firstName: '',
+      lastName: '',
+      address: ''
+    })
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setSelectedPerson({
+      ...selectedPerson,
+      [name]: value
+    });
+  }
 
   // Get People
   const requestGet = async () => {
@@ -66,6 +84,18 @@ function App() {
       })
   }
 
+  // Add new person
+  const requestPost = async () => {
+    delete selectedPerson.id;
+    await axios.post(baseUrl, selectedPerson)
+      .then(response => {
+        setData(data.concat(response.data));
+        openClosePostDataModal();
+      }).catch(error => {
+        console.log(error.response);
+      })
+  }
+
   // Modal States
   const openCloseDataModal = () => {
     setDataModal(!dataModal);
@@ -77,6 +107,10 @@ function App() {
 
   const openCloseSeedDataModal = () => {
     setSeedModal(!seedDataModal);
+  }
+
+  const openClosePostDataModal = () => {
+    setPostDataModal(!postDataModal);
   }
 
   // UseEffect without infinity loop
@@ -97,7 +131,7 @@ function App() {
             <ul className='navbar-nav me-auto '>
               <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseSeedDataModal()}>Seed Data</a></li>
               <li id='seed-data' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDataModal()}>List All</a></li>
-              <li id='new-person' className='nav-item'><a className='nav-link' onClick={() => alert('Working in progress...')}>New Person</a></li>
+              <li id='new-person' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openClosePostDataModal()}>New Person</a></li>
               <li id='clear' className='nav-item'><a className='nav-link active pe-auto' onClick={() => openCloseDeleteModal()}>Clear</a></li>
             </ul>
           </div>
@@ -164,29 +198,32 @@ function App() {
       < Modal isOpen={dataModal} className='modal-lg' >
         <ModalHeader className='text-center mx-auto'>
           <div>
-            <h3>People</h3>
+            <h3>Top {data.slice(0, 15).length} People Data</h3>
           </div>
         </ModalHeader>
         <ModalBody className='form-group'>
           <table className='table table-striped table-bordered table-hover'>
             <thead>
               <tr>
+                <th className='text-center'>Id</th>
                 <th className='text-center'>First Name</th>
                 <th className='text-center'>Last Name</th>
+                <th className='text-center'>Full Address</th>
               </tr>
             </thead>
             <tbody>
               {data && data.length > 0 ? (
-                data.map((person, index) => (
+                data.slice(0, 15).map((person, index) => (
                   <tr key={index}>
                     <td>{person.id}</td>
                     <td>{person.firstName}</td>
                     <td>{person.lastName}</td>
+                    <td>{person.address}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan='3' className='text-center'>No data available</td>
+                  <td colSpan="3">No data available</td>
                 </tr>
               )}
             </tbody>
@@ -219,9 +256,33 @@ function App() {
           <button className='btn btn-secondary' onClick={openCloseSeedDataModal}>Cancel</button>
         </ModalFooter>
       </Modal>
+
+      {/* Post Data Modal */}
+      <Modal isOpen={postDataModal}>
+        <ModalHeader>Insert a new person data</ModalHeader>
+        <ModalBody>
+          <div className='form-group'>
+            <label>First Name: </label>
+            <br />
+            <input type='text' className='form-control text-light' name='firstName' onChange={handleChange} />
+            <br />
+            <label>Last Name: </label>
+            <br />
+            <input type='text' className='form-control text-light' name='lastName' onChange={handleChange} />
+            <br />
+            <label>Full Address: </label>
+            <br />
+            <input type='text' className='form-control text-light' name='address' onChange={handleChange} />
+            <br />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-success' onClick={() => requestPost()}>Include</button> {" "}
+          <button className='btn btn-danger' onClick={() => openClosePostDataModal()}>Cancel</button>
+        </ModalFooter>
+      </Modal>
     </>
   )
 }
 
 export default App
-

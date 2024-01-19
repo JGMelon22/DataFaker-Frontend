@@ -19,6 +19,7 @@ function App() {
   // Buttons action logic
   const [clearButton, setClearButton] = useState(false);
   const [seedDataButton, setSeedDataButton] = useState(false);
+  const [postDataButton, setPostDataButton] = useState(false);
 
   // 
   const [updateData, setUpdateData] = useState(true);
@@ -86,14 +87,20 @@ function App() {
 
   // Add new person
   const requestPost = async () => {
+
+    setPostDataButton(true);
+
     delete selectedPerson.id;
     await axios.post(baseUrl, selectedPerson)
       .then(response => {
         setData(data.concat(response.data));
+        setUpdateData(true);
         openClosePostDataModal();
       }).catch(error => {
         console.log(error.response);
       })
+
+      setPostDataButton(false);
   }
 
   // Modal States
@@ -264,7 +271,7 @@ function App() {
           <div className='form-group'>
             <label>First Name: </label>
             <br />
-            <input type='text' className='form-control text-light' name='firstName' onChange={handleChange} />
+            <input type='text' className='form-control text-light' Disabled={postDataButton} name='firstName' onChange={handleChange} />
             <br />
             <label>Last Name: </label>
             <br />

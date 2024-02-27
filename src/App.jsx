@@ -100,7 +100,7 @@ function App() {
         console.log(error.response);
       })
 
-      setPostDataButton(false);
+    setPostDataButton(false);
   }
 
   // Modal States
@@ -230,7 +230,7 @@ function App() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3">No data available</td>
+                  <td colspan="3" class="text-center">No data available</td>
                 </tr>
               )}
             </tbody>

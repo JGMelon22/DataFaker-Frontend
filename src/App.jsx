@@ -230,7 +230,7 @@ function App() {
                 ))
               ) : (
                 <tr>
-                  <td colspan="3" class="text-center">No data available</td>
+                  <td colspan="4" class="text-center">No data available</td>
                 </tr>
               )}
             </tbody>
